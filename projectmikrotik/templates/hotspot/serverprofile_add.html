@@ -1,0 +1,41 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Server Profile-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                <form action="{% url 'serverprofile-add' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="card-block table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th style="width: 5%;">NAME :</th>
+                                    <td><input type="text" name="name" value="" class="form-control" required></td>
+                                </tr>
+                                <tr>
+                                    <th>Hotspot Address :</th>
+                                    <td><input type="text" name="address" value="" class="form-control" required></td>
+                                </tr>
+                                <tr>
+                                    <th>DNS Server  :</th>
+                                    <td><input type="text" name="dns" value="" class="form-control" ></td>
+                                </tr>
+                            </table>
+                            <div class="text-right">
+                                <button type="submit" class="btn mb-1 mt-3 text-light"
+                                    style="background-color: rgb(25, 135, 84);border-radius: 5px;">Save</button>
+                                <a href="{% url 'hotspot-list' %}" class="btn btn-dark mb-1 mt-3 "
+                                    style="border-radius: 5px;">Back</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

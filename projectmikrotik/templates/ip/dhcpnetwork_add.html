@@ -1,0 +1,46 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">DHCP Network-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'dhcpnetwork-add' %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">Address :</th>
+                                                <td>
+                                                   <input type="text" name="address" class="form-control" placeholder="192.168.1.0/24" required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Gateway :</th>
+                                                <td>
+                                                   <input type="text" name="gateway" class="form-control" placeholder="192.168.1.1" required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">DNS Server :</th>
+                                                <td>
+                                                   <input type="text" name="dns" class="form-control" placeholder="8.8.8.8,8.8.4.4">
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'dhcpclient-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

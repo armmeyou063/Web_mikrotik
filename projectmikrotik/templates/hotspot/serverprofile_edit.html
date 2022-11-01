@@ -1,0 +1,50 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Server Profile-Edit</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                <form action="{% url 'serverprofile-edit' serverprofile.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="card-block table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th style="width: 5%;">NAME :</th>
+                                    <td>
+                                        <input type="text" name="ser_id" value="{{serverprofile.ser_id}}" id="" hidden>
+                                        <input type="text" name="name" value="{{serverprofile.ser_name}}" class="form-control" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Hotspot Address :</th>
+                                    <td><input type="text" name="address" value="{{serverprofile.ser_address}}" class="form-control" required></td>
+                                </tr>
+                                <tr>
+                                    <th>DNS Server  :</th>
+                                    <td>
+                                        {%if serverprofile.ser_dns == ' ' %}
+                                        <input type="text" name="dns" value="" class="form-control" >
+                                        {%else%}
+                                        <input type="text" name="dns" value="{{serverprofile.ser_dns}}" class="form-control" >
+                                        {%endif%}
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="text-right">
+                                <button type="submit" class="btn mb-1 mt-3 text-light"
+                                    style="background-color: rgb(25, 135, 84);border-radius: 5px;">Save</button>
+                                <a href="{% url 'hotspot-list' %}" class="btn btn-dark mb-1 mt-3 "
+                                    style="border-radius: 5px;">Back</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

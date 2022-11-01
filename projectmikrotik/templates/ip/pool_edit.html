@@ -1,0 +1,41 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">IP Pool-Edit</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'pool-edit' ippool.id %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">Name Pool :</th>
+                                                <td>
+                                                    <input type="text" name="pool_id" value="{{ippool.pool_id}}" id="" hidden>
+                                                   <input type="text" name="name" class="form-control" value="{{ippool.pool_name}}" placeholder="Name Pool" required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address :</th>
+                                                <td>
+                                                    <input type="text" name="address" class="form-control" value="{{ippool.pool_address}}" placeholder=" 192.xxx.xxx.xxx - 192.xxx.xxx.xxx" required>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'pool-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

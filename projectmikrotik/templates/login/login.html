@@ -1,0 +1,41 @@
+{%extends 'tem_login.html'%}
+{% block content %}
+<form  action="{% url 'login' %}" class="md-float-material" method="post">
+    {% csrf_token %}
+    <div class="auth-box">
+        <div class="row m-b-20">
+            <div class="col-md-12">
+                <h3 class="text-center txt-primary">Login Mikrotik</h3>
+            </div>
+        </div>
+        <hr/>
+        <div class="input-group">
+            <input type="text" name="host" class="form-control" placeholder="Host,IP Address">
+            <span class="md-line"></span>
+        </div>
+        <div class="input-group">
+            <input type="text" name="username" class="form-control" placeholder="Username">
+            <span class="md-line"></span>
+        </div>
+        <div class="input-group">
+            <input type="text" name="password" class="form-control" placeholder="Password">
+            <span class="md-line"></span>
+        </div>
+        
+        <div class="row m-t-30">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Login</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-10">
+                <p class="text-inverse text-center m-b-0">Thank you and enjoy our website.</p>
+                <p class="text-inverse text-center"><b>Your Authentication Team</b></p>
+            </div>
+            
+        </div>
+
+    </div>
+</form>
+{% endblock %}

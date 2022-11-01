@@ -1,0 +1,62 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Binding-Edit</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'binding-edit' binding.id %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th>Mac-Address :</th>
+                                                <td>
+                                                    <input type="text" name="binding_id" value="{{binding.binding_id}}" hidden>
+                                                    <input type="text" name="mac_address" value="{{binding.binding_mac}}" class="form-control" required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address :</th>
+                                                <td>
+                                                    <input type="text" name="address" value="{{binding.binding_address}}" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">server :</th>
+                                                <td>
+                                                    <select name="server"  class="form-control" required>
+                                                        <option value="all" {% if  binding.binding_ser == 'all' %} selected {%endif%}>all</option>
+                                                        {% for r in server %}
+                                                        <option value="{{r.server_name}}"{% if binding.binding_ser == r.server_name %} selected {%endif%}>{{r.server_name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Type :</th>
+                                                <td>
+                                                    <select name="typebinding"  class="form-control">
+                                                        <option value="blocked"{% if  binding.binding_type == 'blocked' %} selected {%endif%}>blocked</option>
+                                                        <option value="bypassed"{% if  binding.binding_type == 'bypassed' %} selected {%endif%}>bypassed</option>
+                                                        <option value="regular"{% if  binding.binding_type == 'regular' %} selected {%endif%}>regular</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'hotspot-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

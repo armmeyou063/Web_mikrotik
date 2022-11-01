@@ -1,0 +1,70 @@
+{%extends 'index.html'%}
+{% block content1 %}
+{% for r in identity %}
+{{r.name}}
+{%endfor%}
+{% endblock  %}
+{% block content %}
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">DNS</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="text-right">
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge" id="tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Servers</th>
+                                        <th class="text-center">Dynamic Servers</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                             {%for r in dns %}
+                                <tr align="center">
+                                    <td>
+                                        {{r.server}}
+                                    </td>
+                                    <td>
+                                        {{r.dynamic}}
+                                    </td>
+                                    <td>
+                                        <a href="/dns/edit/{{r.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                    </td>
+                                 </tr>
+                                 {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        addRowCount('.tablebridge');
+    })
+    function addRowCount(tableAttr) {
+        $(tableAttr).each(function(){
+          $('th:first-child, thead td:first-child', this).each(function(){
+            var tag = $(this).prop('tagName');
+           // $(this).before('<'+tag+'>No.</'+tag+'>');
+          });
+          $('td:first-child', this).each(function(i){
+            $(this).before('<td>'+(i+1)+'.</td>');
+          });
+        });
+      }
+</script>
+{% endblock %}

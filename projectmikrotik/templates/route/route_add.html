@@ -1,0 +1,45 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Route-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'route-add' %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">DST-Address :</th>
+                                                <td>
+                                                   <input type="text" name="dst_address" class="form-control"  value="0.0.0.0/0"  required>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>gateway :</th>
+                                                <datalist id="interface">
+                                                    {%for t in interface %}
+                                                    <option value="{{t.interface_name}}">{{t.interface_name}}</option>
+                                                    {%endfor%}
+                                                </datalist>
+                                                <td>
+                                                    <input type="text" list="interface" name="gateway" class="form-control" required>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'route-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

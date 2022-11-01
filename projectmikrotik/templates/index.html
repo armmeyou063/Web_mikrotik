@@ -1,0 +1,337 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mikrotik RouterBoard </title>
+    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- Meta -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="description" content="Gradient Able Bootstrap admin template made using Bootstrap 4. The starter version of Gradient Able is completely free for personal project." />
+      <meta name="keywords" content="free dashboard template, free admin, free bootstrap template, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+      <meta name="author" content="codedthemes">
+      <!-- Favicon icon -->
+      <link rel="icon" type="jpg" href="{% static 'bootstrap/assets/img/mikrotik.jpg' %}"/>
+      <!-- Google font-->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+      <!-- Required Fremwork -->
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/css/bootstrap/css/bootstrap.min.css' %}">
+      <!-- themify-icons line icon -->
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/icon/themify-icons/themify-icons.css' %}">
+	  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/icon/font-awesome/css/font-awesome.min.css' %}">
+      <!-- ico font -->
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/icon/icofont/css/icofont.css' %}">
+      <!-- Style.css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/css/style.css' %} ">
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/assets/css/jquery.mCustomScrollbar.css' %}">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+       <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+
+            <nav class="navbar header-navbar pcoded-header">
+               <div class="navbar-wrapper">
+                   <div class="navbar-logo">
+                       <a class="mobile-menu" id="mobile-collapse" href="#!">
+                           <i class="ti-menu"></i>
+                       </a>
+                       <div class="mobile-search">
+                           <div class="header-search">
+                               <div class="main-search morphsearch-search">
+                                   <div class="input-group">
+                                       <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                                       <input type="text" class="form-control" placeholder="Enter Keyword">
+                                       <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <t class="text-light"><b>Mikrotik RB</b></t>
+                       <a class="mobile-options">
+                           <i class="ti-more"></i>
+                       </a>
+                   </div>
+
+                   <div class="navbar-container container-fluid">
+                       <ul class="nav-left">
+                         
+                           <li class="header-search">
+                               <div class="main-search morphsearch-search">
+                                
+                               </div>
+                           </li>
+                           <li>
+                              
+                           </li>
+                       </ul>
+                       <ul class="nav-right">
+                        
+                           
+                           <li class="user-profile header-notification">
+                            <a href="#!">
+                                <img src="{% static 'bootstrap/assets/img/user.png' %}" class="img-radius" alt="User-Profile-Image">
+                                {% block content1 %}
+                                <span></span>
+                                {% endblock %}
+                                <i class="ti-angle-down"></i>
+                            </a>
+                               <ul class="show-notification profile-notification">
+                            
+                                   <li>
+                                       <a href="/logout">
+                                       <i class="ti-layout-sidebar-left"></i> Logout
+                                   </a>
+                                   </li>
+                               </ul>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+           </nav>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Index</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="active">
+                                    <a href="/">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Basic &amp; configuration </div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li>
+                                    <a href="/interface">
+                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Interface</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/bridge">
+                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Bridge</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">IP</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="/address">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">IP Address</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/dhcpclient">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">DHCP Client</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/dhcpserver">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">DHCP Server</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/dns">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">DNS</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/firewall">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Firewall</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/pool">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">IP Pool</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/hotspot">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Hotspot</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/route">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Route</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Other</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">System</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="/identity">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Identity</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/user">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">User</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/reboot">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Reboot</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/shutdown">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Shutdown</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </nav>
+                  
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            {% block content %}
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <div class="page-body">
+                                      <div class="row">
+                                     
+                                            <!-- order-card start -->
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card bg-c-blue order-card">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-20">Orders Received</h6>
+                                                        <h2 class="text-right"><i class="ti-shopping-cart f-left"></i><span>486</span></h2>
+                                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card bg-c-green order-card">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-20">Total Sales</h6>
+                                                        <h2 class="text-right"><i class="ti-tag f-left"></i><span>1641</span></h2>
+                                                        <p class="m-b-0">This Month<span class="f-right">213</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card bg-c-yellow order-card">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-20">Revenue</h6>
+                                                        <h2 class="text-right"><i class="ti-reload f-left"></i><span>$42,562</span></h2>
+                                                        <p class="m-b-0">This Month<span class="f-right">$5,032</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card bg-c-pink order-card">
+                                                    <div class="card-block">
+                                                        <h6 class="m-b-20">Total Profit</h6>
+                                                        <h2 class="text-right"><i class="ti-wallet f-left"></i><span>$9,562</span></h2>
+                                                        <p class="m-b-0">This Month<span class="f-right">$542</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
+                                    <div id="styleSelector">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/popper.js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/modernizr/modernizr.js' %}"></script>
+<!-- am chart -->
+<script src="{% static 'bootstrap/assets/pages/widget/amchart/amcharts.min.js' %}"></script>
+<script src="{% static 'bootstrap/assets/pages/widget/amchart/serial.min.js' %}"></script>
+<!-- Chart js -->
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/chart.js/Chart.js' %}"></script>
+<!-- Todo js -->
+<script type="text/javascript " src="{% static 'bootstrap/assets/pages/todo/todo.js' %} "></script>
+<!-- Custom js -->
+<!-- <script type="text/javascript" src="{% static 'bootstrap/assets/pages/dashboard/custom-dashboard.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'bootstrap/assets/js/script.js' %}"></script>
+<script type="text/javascript " src="{% static 'bootstrap/assets/js/SmoothScroll.js' %}"></script>
+<script src="{% static 'bootstrap/assets/js/pcoded.min.js' %}"></script>
+<script src="{% static 'bootstrap/assets/js/vartical-demo.js' %}"></script>
+<script src="{% static 'bootstrap/assets/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+</body>
+</html>

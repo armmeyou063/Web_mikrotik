@@ -1,0 +1,71 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">DHCP Client-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'dhcpclient-add' %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">Name Interface :</th>
+                                                <td>
+                                                    <select name="interface"  class="form-control">
+                                                        <option value="">--Select Interface--</option>
+                                                        {% for r in interface %}
+                                                        <option value="{{r.interface_name}}">{{r.interface_name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input ml-3" name="dns" type="checkbox" value="yes" id="dns">
+                                                        <label class="form-check-label ml-3" for="dns">
+                                                            Use Peer DNS
+                                                          </label>
+                                                      </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input ml-3" name="ntp" type="checkbox" value="yes" id="ntp">
+                                                        <label class="form-check-label ml-3" for="ntp">
+                                                            Use Peer NTP
+                                                          </label>
+                                                      </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Add Default Route :</th>
+                                                <td>
+                                                    <select name="route"  class="form-control">
+                                                        {% for r in dhcptype %}
+                                                        <option value="{{r.name}}">{{r.name}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'dhcpclient-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

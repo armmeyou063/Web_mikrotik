@@ -1,0 +1,269 @@
+{%extends 'index.html'%}
+{% block content1 %}
+{% for r in identity %}
+{{r.name}}
+{%endfor%}
+{% endblock  %}
+{% block content %}
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+            aria-controls="pills-home" aria-selected="true">DHCP</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+            aria-controls="pills-profile" aria-selected="false">Network</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+            aria-controls="pills-contact" aria-selected="false">Leases</a>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+<!---------------------------------------------- Part DHCP--------------------------------------->
+<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">DHCP</h1>
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="text-right">
+                            <a href="{% url 'dhcpserver-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                        </div>
+                        <table class="table table-hover table-bordered tablebridge" id="tablebridge">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th class="text-center" style="width: 5%;">No.</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Interface</th>
+                                    <th class="text-center">Address Pool</th>
+                                    <th class="text-center">Seting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {%for r in dhcpserver %}
+                                <tr align="center">
+                                    <td>
+                                        {{r.name}}
+                                        <input type="text" value="{{r.name}}" id="name{{r.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {{r.interface}}
+                                        <input type="text" value="{{r.interface}}" id="interface{{r.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {{r.address_pool}}
+                                        <input type="text" value="{{r.address_pool}}" id="address{{r.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        <a href="/dhcpserver/edit/{{r.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                        <a onclick="del({{r.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                    </td>
+
+                                    <script>
+                                        function del(url){
+                                            $('#delete').modal("show")
+                                            $('#text1_delete').text('Name Bridge :' + $('#name'+ url).val());
+                                            $('#text2_delete').text('Type :' + $('#interface'+ url).val());
+                                            $('#text3_delete').text('Type :' + $('#address'+ url).val());
+                                            $('#a_delete').attr('href','/dhcpserver/delete/'+url)
+                                            }
+                                    </script>
+
+                                </tr>
+                            </tbody>
+
+                            <div class="modal fade" id="delete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p id="text1_delete"></p>
+                                        <p id="text2_delete"></p>
+                                        <p id="text3_delete"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                      <a href="#" id="a_delete" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            {%endfor%}
+                        </table>
+                        <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!---------------------------------------------- Part DHCP NETWORK--------------------------------------->
+ <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Network</h1>
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="text-right">
+                            <a href="{% url 'dhcpnetwork-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                        </div>
+                        <table class="table table-hover table-bordered tablebridge">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th class="text-center" style="width: 5%;">No.</th>
+                                    <th class="text-center">Network</th>
+                                    <th class="text-center">Gateway</th>
+                                    <th class="text-center">DNS-Server</th>
+                                    <th class="text-center">Seting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for n in dhcpnetwork %}
+                                <tr align="center">
+                                    <td>
+                                        {{n.address}}
+                                        <input type="text" value="{{n.address}}" id="address{{n.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {{n.gateway}}
+                                        <input type="text" value="{{n.gateway}}" id="gateway{{n.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {%if n.dns == '' %}
+                                        <t><b>-</b></t>
+                                        {%else%}
+                                        {{n.dns}}
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        <a href="/dhcpnetwork/edit/{{n.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                        <a onclick="dele({{n.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                    </td>
+
+                                    <script>
+                                        function dele(url){
+                                            $('#dele').modal("show")
+                                            $('#text4_delete').text('Network :' + $('#address'+ url).val());
+                                            $('#text5_delete').text('Gate Way :' + $('#gateway'+ url).val());
+                                            $('#a_dele').attr('href','/dhcpnetwork/delete/'+url)
+                                            }
+                                    </script>
+
+                                </tr>
+
+                                <div class="modal fade" id="dele" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="text4_delete"></p>
+                                            <p id="text5_delete"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                          <a href="#" id="a_dele" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                        <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!---------------------------------------------- Part Lease--------------------------------------->
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Leases</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <!-- <a href="" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a> -->
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">IP Address</th>
+                                        <th class="text-center">Mac-Address</th>
+                                        <th class="text-center">Client ID</th>
+                                        <th class="text-center">Server</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {%for d in dhcplease%}
+                                  
+                                    <tr align="center">
+                                        <td>
+                                            {{d.address}}
+                                        </td>
+                                        <td>
+                                            {{d.mac_address}}
+                                        </td>
+                                        <td>
+                                            {{d.client}}
+                                        </td>
+                                        <td>
+                                            {{d.dhcpserver}}
+                                        </td>
+                                        <td>
+                                            {{d.status}}
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function(){
+            addRowCount('.tablebridge');
+        })
+        function addRowCount(tableAttr) {
+            $(tableAttr).each(function(){
+              $('th:first-child, thead td:first-child', this).each(function(){
+                var tag = $(this).prop('tagName');
+               // $(this).before('<'+tag+'>No.</'+tag+'>');
+              });
+              $('td:first-child', this).each(function(i){
+                $(this).before('<td>'+(i+1)+'.</td>');
+              });
+            });
+          }
+    </script>
+{% endblock %}

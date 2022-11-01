@@ -1,0 +1,515 @@
+{%extends 'index.html'%}
+{% block content1 %}
+{% for r in identity %}
+{{r.name}}
+{%endfor%}
+{% endblock  %}
+{% block content %}
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-server-tap" data-toggle="pill" href="#pills-server" role="tab"
+            aria-controls="pills-home" aria-selected="true">Servers</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-serverprofile-tab" data-toggle="pill" href="#pills-serverprofile" role="tab"
+            aria-controls="pills-profile" aria-selected="false">Server Profile</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-users-tab" data-toggle="pill" href="#pills-users" role="tab"
+            aria-controls="pills-contact" aria-selected="false">Users</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-usersprofile-tab" data-toggle="pill" href="#pills-usersprofile" role="tab"
+            aria-controls="pills-contact" aria-selected="false">Users Profile</a>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-hosting-tab" data-toggle="pill" href="#pills-hosting" role="tab"
+            aria-controls="pills-host" aria-selected="false">Host</a>
+    </li> -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-binding-tab" data-toggle="pill" href="#pills-binding" role="tab"
+            aria-controls="pills-binding" aria-selected="false">IP Binding</a>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+     <!---------------------------------------------- Part Server--------------------------------------->
+    <div class="tab-pane fade show active" id="pills-server" role="tabpanel" aria-labelledby="pills-server-tap">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Server</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                   
+                    <div class="card mb-2">
+                        <div class="card-block table-border-style">
+                        <div class="table-responsive">
+                        <div class="card-body">
+                          
+                            <div class="text-right">
+                                <a href="{% url 'server-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge" id="tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Interface</th>
+                                        <th class="text-center">Address Pool</th>
+                                        <th class="text-center">Profile</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {%for s in server %}
+                                    <tr align="center">
+                                        <td>
+                                            {{s.server_name}}
+                                            <input type="text" value="{{s.server_name}}" id="name{{s.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{s.server_interface}}
+                                            <input type="text" value="{{s.server_name}}" id="interface{{s.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{s.server_pool}}
+                                            <input type="text" value="{{s.server_name}}" id="pool{{s.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{s.server_profile}}
+                                            <input type="text" value="{{s.server_name}}" id="profile{{s.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            <a href="/server/edit/{{s.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                            <a onclick="delete1({{s.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                        </td>
+
+                                        <script>
+                                            function delete1(url){
+                                                $('#delete1').modal("show")
+                                                $('#text1_delete').text('Name :' + $('#name'+ url).val());
+                                                $('#text2_delete').text('Interface :' + $('#interface'+ url).val());
+                                                $('#text3_delete').text('Pool :' + $('#pool'+ url).val());
+                                                $('#text4_delete').text('Profile :' + $('#profile'+ url).val());
+                                                $('#a_delete1').attr('href','/server/delete/'+url)
+                                                }
+                                        </script>
+
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+
+                                <div class="modal fade" id="delete1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="text1_delete"></p>
+                                            <p id="text2_delete"></p>
+                                            <p id="text3_delete"></p>
+                                            <p id="text4_delete"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                          <a href="#" id="a_delete1" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------- Part Server Profile--------------------------------------->
+    <div class="tab-pane fade" id="pills-serverprofile" role="tabpanel" aria-labelledby="pills-serverprofile-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Server Profile</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body ">
+                            <div class="table-responsive">
+                            <div class="text-right">
+                                <a href="{% url 'serverprofile-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">DNS Name</th>
+                                        <th class="text-center">Hotspot Address</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {%for sp in serverprofile %}
+                                    <tr align="center">
+                                      <td>
+                                         {{sp.ser_name}}
+                                         <input type="text" value="{{sp.ser_name}}" id="name{{sp.id}}" hidden>
+                                      </td>
+                                      <td>
+                                        {{sp.ser_dns}}
+                                        <input type="text" value="{{sp.ser_dns}}" id="dns{{sp.id}}" hidden>
+                                      </td>
+                                      <td>
+                                        {{sp.ser_address}}
+                                        <input type="text" value="{{sp.ser_address}}" id="address{{sp.id}}" hidden>
+                                      </td>
+                                      <td>
+                                        <a href="/serverprofile/edit/{{sp.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                        <a onclick="delete2({{sp.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                      </td>
+                                        <script>
+                                            function delete2(url){
+                                                $('#delete2').modal("show")
+                                                $('#text5_delete').text('Name :' + $('#name'+ url).val());
+                                                $('#text6_delete').text('DNS-NAME :' + $('#dns'+ url).val());
+                                                $('#text7_delete').text('Address :' + $('#address'+ url).val());
+                                                $('#a_delete1').attr('href','/serverprofile/delete/'+url)
+                                                }
+                                        </script>
+                                    </tr>
+                                    <div class="modal fade" id="delete2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="text5_delete"></p>
+                                                <p id="text6_delete"></p>
+                                                <p id="text7_delete"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                              <a href="#" id="a_delete1" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                 {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!---------------------------------------------- Part Users--------------------------------------->
+    <div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Users</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <a href="{% url 'users-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Name Server</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Profile</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {%for u in users%}
+                                    <tr align="center">
+                                       <td>
+                                           {%if u.user_ser == '' %}
+                                           <t><b>-</b></t>
+                                           {%else%}
+                                           {{u.user_ser}}
+                                           <input type="text" value="{{u.user_ser}}" id="server{{u.id}}" hidden>
+                                           {%endif%}
+                                       </td>
+                                       <td>
+                                           {{u.user_name}}
+                                           <input type="text" value="{{u.user_name}}" id="name{{u.id}}" hidden>
+                                       </td>
+                                       <td>
+                                           {%if u.user_pro == '' %}
+                                           <t><b>-</b></t>
+                                           {%else%}
+                                           {{u.user_pro}}
+                                           <input type="text" value=" {{u.user_pro}}" id="profile{{u.id}}" hidden>
+                                           {%endif%}
+                                       </td>
+                                       <td>
+                                        <a href="/users/edit/{{u.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                        <a onclick="delete3({{u.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                       </td>
+
+                                        <script>
+                                            function delete3(url){
+                                                $('#delete3').modal("show")
+                                                $('#text8_delete').text('Name Server :' + $('#server'+ url).val());
+                                                $('#text9_delete').text('Name :' + $('#name'+ url).val());
+                                                $('#text10_delete').text('Profile :' + $('#profile'+ url).val());
+                                                $('#a_delete3').attr('href','/users/delete/'+url)
+                                                }
+                                        </script>
+                                        
+                                    </tr>
+
+                                    <div class="modal fade" id="delete3" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="text8_delete"></p>
+                                                <p id="text9_delete"></p>
+                                                <p id="text10_delete"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                              <a href="#" id="a_delete3" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                   
+                                 {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!---------------------------------------------- Part usersprofile--------------------------------------->
+    <div class="tab-pane fade" id="pills-usersprofile" role="tabpanel" aria-labelledby="pills-usersprofile-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Users Profile</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <a href="{% url 'userprofile-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Address Pool</th>
+                                        <th class="text-center">Rate Limit Users</th>
+                                        <th class="text-center">Shared Users</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {%for up in userprofile %}
+                                    <tr align="center">
+                                        <td>
+                                            {{up.userpro_name}}
+                                            <input type="text" value="{{up.userpro_name}}" id="userproname{{up.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {%if up.userpro_address == ''%}
+                                            <t><b>-</b></t>
+                                            {%else%}
+                                            {{up.userpro_address}}
+                                            {%endif%}
+                                        </td>
+                                        <td>
+                                            {%if up.userpro_rate == ''%}
+                                            <t><b>-</b></t>
+                                            {%else%}
+                                            {{up.userpro_rate}}
+                                            {%endif%}
+                                        </td>
+                                        <td>
+                                            {{up.userpro_share}}
+                                        </td>
+                                        <td>
+                                            <a href="/userprofile/edit/{{up.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                            <a onclick="delete4({{up.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                        </td>
+
+                                        <script>
+                                            function delete4(url){
+                                                $('#delete4').modal("show")
+                                                $('#text12_delete').text('Name :' + $('#userproname'+ url).val());
+                                                $('#a_delete4').attr('href','/userprofile/delete/'+url)
+                                                }
+                                        </script>
+
+                                    </tr>
+
+                                    <div class="modal fade" id="delete4" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="text12_delete"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                              <a href="#" id="a_delete4" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                   {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!---------------------------------------------- Part binding--------------------------------------->
+<div class="tab-pane fade" id="pills-binding" role="tabpanel" aria-labelledby="pills-binding-tab">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">IP Binding</h1>
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="text-right">
+                            <a href="{% url 'binding-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                        </div>
+                        <table class="table table-hover table-bordered tablebridge">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th class="text-center" style="width: 5%;">No.</th>
+                                    <th class="text-center">Mac-Address</th>
+                                    <th class="text-center">Server</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Seting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {%for b in binding %}
+                                <tr align="center">
+                                    <td>
+                                        {{b.binding_mac}}
+                                        <input type="text"  value="{{b.binding_mac}}" id="mac{{b.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {{b.binding_ser}}
+                                        <input type="text"  value="{{b.binding_ser}}" id="server{{b.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        {{b.binding_type}}
+                                        <input type="text"  value="{{b.binding_type}}" id="type{{b.id}}" hidden>
+                                    </td>
+                                    <td>
+                                        <a href="/binding/edit/{{b.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                        <a onclick="delete6({{b.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                    </td>
+
+                                    <script>
+                                        function delete6(url){
+                                            $('#delete6').modal("show")
+                                            $('#text17_delete').text('Mac-Address :' + $('#mac'+ url).val());
+                                            $('#text18_delete').text('Server :' + $('#server'+ url).val());
+                                            $('#text19_delete').text('Type :' + $('#type'+ url).val());
+                                            $('#a_delete6').attr('href','/binding/delete/'+url)
+                                            }
+                                    </script>
+
+                                </tr>
+
+                                <div class="modal fade" id="delete6" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="text17_delete"></p>
+                                            <p id="text18_delete"></p>
+                                            <p id="text19_delete"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                          <a href="#" id="a_delete6" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                               {%endfor%}
+                            </tbody>
+                        </table>
+                        <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        addRowCount('.tablebridge');
+    })
+    function addRowCount(tableAttr) {
+        $(tableAttr).each(function(){
+          $('th:first-child, thead td:first-child', this).each(function(){
+            var tag = $(this).prop('tagName');
+           // $(this).before('<'+tag+'>No.</'+tag+'>');
+          });
+          $('td:first-child', this).each(function(i){
+            $(this).before('<td>'+(i+1)+'.</td>');
+          });
+        });
+      }
+</script>
+{% endblock %}

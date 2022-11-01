@@ -1,0 +1,315 @@
+{%extends 'index.html'%}
+{% block content1 %}
+{% for r in identity %}
+{{r.name}}
+{%endfor%}
+{% endblock  %}
+{% block content %}
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+            aria-controls="pills-home" aria-selected="true">Bridge</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+            aria-controls="pills-profile" aria-selected="false">Port</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+            aria-controls="pills-contact" aria-selected="false">VLANS</a>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+     <!---------------------------------------------- Part Bridge--------------------------------------->
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Bridge</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <a href="{% url 'bridge-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge" id="tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Actual MTU</th>
+                                        <th class="text-center">L2 MTU</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {%for r in bridge %}
+                                    <tr align="center">
+                                        <td>{{r.name}}
+                                            <input type="text" value="{{r.name}}" id="name{{r.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{r.typebridge}}
+                                            <input type="text" value="{{r.typebridge}}" id="typebridge{{r.id}}" hidden>
+                                        </td>
+                                        <td>{{r.actualmtu}}</td>
+                                        <td>{{r.l2mtu}}</td>
+                                        <td>
+                                            <a href="/bridge/edit/{{r.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                            <a onclick="del({{r.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                        </td>
+                                        <script>
+                                            function del(url){
+                                                $('#delete').modal("show")
+                                                $('#text1_delete').text('Name Bridge :' + $('#name'+ url).val());
+                                                $('#text2_delete').text('Type :' + $('#typebridge'+ url).val());
+                                                $('#a_delete').attr('href','/bridge/delete/'+url)
+                                                }
+                                        </script>
+                                    </tr>
+                                </tbody>
+
+                                <div class="modal fade" id="delete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="text1_delete"></p>
+                                            <p id="text2_delete"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                          <a href="#" id="a_delete" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                {%endfor%}
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---------------------------------------------- Part Port--------------------------------------->
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Port</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <a href="{% url 'port-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Interface</th>
+                                        <th class="text-center">Bridge</th>
+                                        <th class="text-center">PVID</th>
+                                        <th class="text-center">Frame-Types</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for port in port %}
+                                    <tr align="center">
+                                        <td>
+                                            {{port.interface}}
+                                            <input type="text" value="{{port.interface}}" id="interface{{port.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{port.bridge}}
+                                            <input type="text" value="{{port.bridge}}" id="brdige{{port.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{port.pvid}}
+                                            <input type="text" value="{{port.pvid}}" id="pvid{{port.id}}" hidden>
+                                        </td>
+                                        <td>{{port.frametypes}}</td>
+                                        <td>
+                                            <a href="/port/edit/{{port.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                            <a onclick="dell({{port.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                        </td>
+                                        
+                                        <script>
+                                            function dell(url){
+                                                $('#dell').modal("show")
+                                                $('#text4_delete').text('Name Interface :' + $('#interface'+ url).val());
+                                                $('#text5_delete').text('Name Bridge :' + $('#brdige'+ url).val());
+                                                $('#text6_delete').text('PVID :' + $('#pvid'+ url).val());
+                                                $('#a_dell').attr('href','/port/delete/'+url)
+                                                }
+                                        </script>
+
+                                    </tr>
+                                    <div class="modal fade" id="dell" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="text4_delete"></p>
+                                                <p id="text5_delete"></p>
+                                                <p id="text6_delete"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                              <a href="#" id="a_dell" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!---------------------------------------------- Part VLANS--------------------------------------->
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">VLANS</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <a href="{% url 'vlans-add' %}" class="btn mb-1 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;">Add</a>
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">Bridge</th>
+                                        <th class="text-center">VLANID</th>
+                                        <th class="text-center">Tagged</th>
+                                        <th class="text-center">Untagged</th>
+                                        <th class="text-center">Seting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {%for vlans in vlans%}
+                                    <tr align="center">
+                                        <td>
+                                            {{vlans.vlans_bridge}}
+                                            <input type="text" value="{{vlans.vlans_bridge}}" id="bridge{{vlans.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {{vlans.vlans_ids}}
+                                            <input type="text" value="{{vlans.vlans_ids}}" id="vlans{{vlans.id}}" hidden>
+                                        </td>
+                                        <td>
+                                            {% if vlans.tagged == '' %}
+                                            <t><b>-</b></t>
+                                             {%else%}
+                                            {{vlans.tagged}}
+                                            <input type="text" value="{{vlans.tagged}}" id="tagged{{vlans.id}}" hidden>
+                                            {%endif%}
+                                        </td>
+                                        <td>
+                                            {% if vlans.untagged == ''%}
+                                            <t><b>-</b></t>
+                                            {%else%}
+                                            {{vlans.untagged}}
+                                            <input type="text" value="{{vlans.untagged}}" id="untagged{{vlans.id}}" hidden>
+                                            {%endif%}
+                                        </td>
+                                        <td>
+                                            {% if vlans.vlans_ids == '1'%}
+                                            {%else%}
+                                            <a href="/vlans/edit/{{vlans.id}}" class="btn btn-primary" style="border-radius: 5px;">Edit</a>
+                                            <a onclick="dele({{vlans.id}})" class="btn btn-danger text-light" style="border-radius: 5px;">Delete</a>
+                                            {%endif%}
+                                        </td>
+
+                                        <script>
+                                            function dele(url){
+                                                $('#dele').modal("show")
+                                                $('#text7_delete').text('Name Bridge :' + $('#bridge'+ url).val());
+                                                $('#text8_delete').text('Vlan-ID :' + $('#vlans'+ url).val());
+                                                $('#text9_delete').text('tagged :' + $('#tagged'+ url).val());
+                                                $('#text10_delete').text('untagged :' + $('#untagged'+ url).val());
+                                                $('#a_dele').attr('href','/vlans/delete/'+url)
+                                                }
+                                        </script>
+
+                                    </tr>
+
+                                    <div class="modal fade" id="dele" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Delete Data</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p id="text7_delete"></p>
+                                                <p id="text8_delete"></p>
+                                                <p id="text9_delete"></p>
+                                                <p id="text10_delete"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal" style="border-radius: 5px;">Cancle</button>
+                                              <a href="#" id="a_dele" class="btn btn-danger" style="border-radius: 5px;">Save</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        addRowCount('.tablebridge');
+    })
+    function addRowCount(tableAttr) {
+        $(tableAttr).each(function(){
+          $('th:first-child, thead td:first-child', this).each(function(){
+            var tag = $(this).prop('tagName');
+           // $(this).before('<'+tag+'>No.</'+tag+'>');
+          });
+          $('td:first-child', this).each(function(i){
+            $(this).before('<td>'+(i+1)+'.</td>');
+          });
+        });
+      }
+</script>
+{% endblock %}

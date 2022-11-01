@@ -1,0 +1,81 @@
+{%extends 'index.html'%}
+{% block content1 %}
+{% for r in identity %}
+{{r.name}}
+{%endfor%}
+{% endblock  %}
+{% block content %}
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+            aria-controls="pills-home" aria-selected="true">Connections</a>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+            aria-controls="pills-profile" aria-selected="false">Port</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+            aria-controls="pills-contact" aria-selected="false">VLANS</a>
+    </li> -->
+</ul>
+<div class="tab-content" id="pills-tabContent">
+      <!---------------------------------------------- Part Bridge--------------------------------------->
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Connections</h1>
+            <ol class="breadcrumb mb-4">
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="text-right">
+                            </div>
+                            <table class="table table-hover table-bordered tablebridge" id="tablebridge">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th class="text-center" style="width: 5%;">No.</th>
+                                        <th class="text-center">src-address</th>
+                                        <th class="text-center">dst-address</th>
+                                        <th class="text-center">protocol</th>
+                                        <th class="text-center">orig-packets/orig-bytes</th>
+                                        <th class="text-center">repl-packets/repl-bytes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {%for r in firewall %}
+                                    <tr align="center">
+                                        <td>{{r.src}}</td>
+                                        <td>{{r.dst}}</td>
+                                        <td>{{r.protocal}}</td>
+                                        <td>{{r.orig_packet}} / {{r.orig_byte}}</td>
+                                        <td>{{r.repl_packet}} / {{r.repl_byte}}</td>
+                                    </tr>
+                                </tbody>
+                                {%endfor%}
+                            </table>
+                            <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            addRowCount('.tablebridge');
+        })
+        function addRowCount(tableAttr) {
+            $(tableAttr).each(function(){
+              $('th:first-child, thead td:first-child', this).each(function(){
+                var tag = $(this).prop('tagName');
+               // $(this).before('<'+tag+'>No.</'+tag+'>');
+              });
+              $('td:first-child', this).each(function(i){
+                $(this).before('<td>'+(i+1)+'.</td>');
+              });
+            });
+          }
+    </script>
+    {% endblock %}

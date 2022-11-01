@@ -1,0 +1,43 @@
+{%extends 'index.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Bridge-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'bridge-add' %}" method="POST" >
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">Name Bridge:</th>
+                                                <td><input type="text" name="bridge" class="form-control" required></td>
+                                            </tr>
+                                            <tr>
+                                                <th>VLAN Filtering :</th>
+                                                <td>
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input ml-3" name="filtering" type="checkbox" value="1" id="filtering">
+                                                        <label class="form-check-label ml-3" for="filtering">
+                                                            VLAN  Filtering
+                                                          </label>
+                                                      </div>
+                                                </td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'bridge-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
