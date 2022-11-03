@@ -6,17 +6,15 @@ from network.models import  connection as firewall_model,identity as identity_mo
 
 def firewall_list(request):
     if 'host' in request.session :
-         host = request.session['host']
-         username = request.session['username']
-         password = request.session['password']
-    else:
-        return redirect('login-form')
-    api = connect(username=username, password=password,host=host)
-    connection_info = api(cmd="/ip/firewall/connection/print")
-    firewall_del=firewall_model.objects.all()
-    firewall_del.delete()
-    for con in connection_info:
-            print(json.dumps(con, indent=4))
+        host = request.session['host']
+        username = request.session['username']
+        password = request.session['password']
+        api = connect(username=username, password=password,host=host)
+        connection_info = api(cmd="/ip/firewall/connection/print")
+        firewall_del=firewall_model.objects.all()
+        firewall_del.delete()
+        for con in connection_info:
+            #print(json.dumps(con, indent=4))
             dnssave = firewall_model(
             con_id= con['.id'],
             protocal=con['protocol'],
@@ -30,6 +28,9 @@ def firewall_list(request):
             orig_byte=con['orig-bytes']
             )
             dnssave.save()
-    firewall=firewall_model.objects.all()
-    identity=identity_model.objects.all()
-    return render(request,'firewall/firewall_list.html',{'firewall':firewall,'identity':identity})
+        firewall=firewall_model.objects.all()
+        identity=identity_model.objects.all()
+        return render(request,'firewall/firewall_list.html',{'firewall':firewall,'identity':identity})
+    else:
+        return redirect('login-form')
+    

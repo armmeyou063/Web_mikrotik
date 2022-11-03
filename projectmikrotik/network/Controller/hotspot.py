@@ -5,14 +5,17 @@ from librouteros import connect
 from network.models import  identity as identity_model,interface as interface_model,pool as pool_model,serverprofile as serverprofile_model,server as server_model,userprofile as userprofile_model,users as users_model,binding as binding_model
 
 def hotspot_list(request):
-    binding=binding_model.objects.all()
-    users=users_model.objects.all()
-    userprofile=userprofile_model.objects.all()
-    server=server_model.objects.all()
-    serverprofile=serverprofile_model.objects.all()
-    identity=identity_model.objects.all()
-    return render(request,'hotspot/hotspot_list.html',{'identity':identity,'server':server,'serverprofile':serverprofile,'userprofile':userprofile,'users':users,'binding':binding})
-
+    if 'host' in request.session :
+        binding=binding_model.objects.all()
+        users=users_model.objects.all()
+        userprofile=userprofile_model.objects.all()
+        server=server_model.objects.all()
+        serverprofile=serverprofile_model.objects.all()
+        identity=identity_model.objects.all()
+        return render(request,'hotspot/hotspot_list.html',{'identity':identity,'server':server,'serverprofile':serverprofile,'userprofile':userprofile,'users':users,'binding':binding})
+    else:
+        return redirect('login-form')
+    
 
 def server_add(request):
     if 'host' in request.session :

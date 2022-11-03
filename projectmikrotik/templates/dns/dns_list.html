@@ -30,7 +30,11 @@
                              {%for r in dns %}
                                 <tr align="center">
                                     <td>
+                                        {%if r.server == ''%}
+                                        <t>-</t>
+                                        {%else%}
                                         {{r.server}}
+                                        {%endif%}
                                     </td>
                                     <td>
                                         {{r.dynamic}}

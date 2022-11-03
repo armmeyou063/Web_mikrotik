@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card mb-2">
-                    <form action="{% url 'bridge-add' %}" method="POST" >
+                    <form action="{% url 'bridge-add' %}" method="POST" class="needs-validation" novalidate>
                         {% csrf_token %}
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
                                     <table class="table table-borderless">
                                             <tr>
                                                 <th style="width: 5%;">Name Bridge:</th>
-                                                <td><input type="text" name="bridge" class="form-control" required></td>
+                                                <td><input type="text" name="bridge" class="form-control"  required></td>
                                             </tr>
                                             <tr>
                                                 <th>VLAN Filtering :</th>

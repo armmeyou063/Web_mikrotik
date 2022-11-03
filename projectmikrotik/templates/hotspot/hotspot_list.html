@@ -164,8 +164,12 @@
                                          <input type="text" value="{{sp.ser_name}}" id="name{{sp.id}}" hidden>
                                       </td>
                                       <td>
+                                        {%if sp.ser_dns == ''%}
+                                        <t>-</t>
+                                        {%else%}
                                         {{sp.ser_dns}}
                                         <input type="text" value="{{sp.ser_dns}}" id="dns{{sp.id}}" hidden>
+                                        {%endif%}
                                       </td>
                                       <td>
                                         {{sp.ser_address}}
