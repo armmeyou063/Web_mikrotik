@@ -2,19 +2,25 @@ from django.shortcuts import render, redirect
 import json
 import paramiko
 from librouteros import connect
-from network.models import  interface as interface_model ,ethernet as ethernet_model , vlan as vlan_model,vlans as vlans_model,bridge as bridge_model,port as port_model,dhcpclient as dhcpclient_model,dhcpserver as dhcpserver_model,dhcpnetwork as  dhcpnetwork_model,dhcplease as dhcplease_model,dns as dns_model,connection as firewall_model,serverprofile as serverprofile_model,server as server_model,users as users_model, userprofile as userprofile_model,binding as binding_model,ipaddress as ipaddress_model,pool as pool_model,route as route_model,user as user_model,identity as identity_model
+from network.models import  interface as interface_model ,ethernet as ethernet_model , vlan as vlan_model,vlans as vlans_model,bridge as bridge_model,port as port_model,dhcpclient as dhcpclient_model,dhcpserver as dhcpserver_model,dhcpnetwork as  dhcpnetwork_model,dhcplease as dhcplease_model,dns as dns_model,connection as firewall_model,serverprofile as serverprofile_model,server as server_model,users as users_model, userprofile as userprofile_model,binding as binding_model,ipaddress as ipaddress_model,pool as pool_model,route as route_model,user as user_model,identity as identity_model,device as device_model
 
 
-def loginform(request):
-    return render(request, 'login/login.html',)
+def loginform(request,url):
+    device=device_model.objects.get(id=url)
+    return render(request, 'login/login.html',{'device':device})
 
 
-def login(request):
-    if request.method == 'POST':
-        host = request.POST['host']
-        username = request.POST['username']
-        password = request.POST['password']
-        api = connect(username=username, password=password,host=host)
+def login(request,url):
+    device=device_model.objects.get(id=url)
+    # if request.method == 'POST':
+        # host = request.POST['host']
+        # username = request.POST['username']
+        # password = request.POST['password']
+    username=device.username
+    host=device.host
+    password=device.password
+    try:
+        api = connect(username=username , password=password,host=host)
     ##################### Bridge ######################################
         bridge_info = api(cmd="/interface/bridge/print")
         bridge_del=bridge_model.objects.all()
@@ -422,10 +428,12 @@ def login(request):
         request.session['host'] = host
         request.session['username'] = username
         request.session['password'] = password
-    return redirect('interface-list')
+        return redirect('interface-list')
+    except:
+        return redirect('device-list')
   
 def logout(request):
     del request.session['host']
     del request.session['username'] 
     del request.session['password'] 
-    return redirect('login-form')
+    return redirect('device-list')

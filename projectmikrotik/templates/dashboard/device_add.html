@@ -1,0 +1,44 @@
+{%extends 'index_device.html'%}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Device-Add</h1>
+    <ol class="breadcrumb mb-4">
+    </ol>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-2">
+                    <form action="{% url 'device-add' %}" method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                            <tr>
+                                                <th style="width: 5%;">Mikrotik Name:</th>
+                                                <td><input type="text" name="name" class="form-control"  required></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Host:</th>
+                                                <td><input type="text" name="host" class="form-control"  required></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Username:</th>
+                                                <td><input type="text" name="username" class="form-control"  required></td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%;">Password:</th>
+                                                <td><input type="text" name="password" class="form-control"  ></td>
+                                            </tr>
+                                    </table>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn mb-1 mt-3 text-light" style="background-color: rgb(25, 135, 84);border-radius: 5px;" >Save</button>
+                                    <a href="{% url 'device-list' %}" class="btn btn-dark mb-1 mt-3 " style="border-radius: 5px;">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

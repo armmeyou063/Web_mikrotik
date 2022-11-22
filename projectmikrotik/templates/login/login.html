@@ -5,12 +5,12 @@
     <div class="auth-box">
         <div class="row m-b-20">
             <div class="col-md-12">
-                <h3 class="text-center txt-primary">Login Mikrotik</h3>
+                <h3 class="text-center txt-primary">Login Mikrotik {{device.name}}</h3>
             </div>
         </div>
         <hr/>
         <div class="input-group">
-            <input type="text" name="host" class="form-control" placeholder="Host,IP Address">
+            <input type="text" name="host" class="form-control" placeholder="Host,IP Address" value="{{device.host}}">
             <span class="md-line"></span>
         </div>
         <div class="input-group">
@@ -25,6 +25,7 @@
         <div class="row m-t-30">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Login</button>
+                <a href="{% url 'device-list' %}" class="btn btn-dark btn-md btn-block waves-effect text-center m-b-20">Black</a>
             </div>
         </div>
         <hr/>

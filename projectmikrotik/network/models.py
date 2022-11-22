@@ -171,3 +171,8 @@ class binding(models.Model):
     binding_type = models.CharField(max_length=45)
     binding_address=models.CharField(max_length=45)
    
+class device(models.Model):
+    name = models.CharField(max_length=45)
+    host = models.CharField(max_length=45)
+    username = models.CharField(max_length=45)
+    password = models.CharField(max_length=45)

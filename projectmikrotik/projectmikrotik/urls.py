@@ -20,10 +20,13 @@ from network.Controller import dashboard, interface ,bridge, ip,login,dhcpclient
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',dashboard.Dashboard),
+    path('',dashboard.device_list, name='device-list'),
+    path('device/add',dashboard.device_add, name='device-add'),
+    path('device/edit/<int:url>',dashboard.device_edit, name='device-edit'),
+    path('device/delete/<int:url>',dashboard.device_delete, name='device-delete'),
     #login
-    path('loginform/',login.loginform,name='login-form'),
-    path('login/',login.login,name='login'),
+    path('loginform/<int:url>',login.loginform,name='login-form'),
+    path('login/<int:url>',login.login,name='login'),
     path('logout/',login.logout,name='logout'),
     #Interface
     path('interface/',interface.interface_list,name='interface-list'),
