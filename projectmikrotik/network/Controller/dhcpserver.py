@@ -24,7 +24,6 @@ def dhcpserver_list(request):
             dhcp_id=dhcplease['.id'],
             address=dhcplease['address'],
             mac_address=dhcplease['mac-address'],
-            client=dhcplease['client-id'],
             status=dhcplease['status'],
             dhcpserver=dhcplease['server']
             )
