@@ -313,13 +313,21 @@ def login(request):
         interface_del.delete()
         for interface in interface_info:
             # print(json.dumps(interface, indent=4))
-            interfacesave = interface_model(
-                interface_id=interface['.id'],
-                interface_name=interface['name'],
-                typeinterface=interface['type'],
-                actualmtu=interface['actual-mtu'],
-                l2mtu=interface['l2mtu'],
-                )
+            if interface.get('l2mtu') == None:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    )
+            else:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    l2mtu=interface['l2mtu'],
+                    )
             interfacesave.save()
     ##################### interface vlan ######################################   
         vlan_info = api(cmd="/interface/vlan/print")

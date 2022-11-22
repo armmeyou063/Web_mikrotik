@@ -17,13 +17,21 @@ def interface_list(request):
         interface_del.delete()
         for interface in interface_info:
             # print(json.dumps(interface, indent=4))
-            interfacesave = interface_model(
-                interface_id=interface['.id'],
-                interface_name=interface['name'],
-                typeinterface=interface['type'],
-                actualmtu=interface['actual-mtu'],
-                l2mtu=interface['l2mtu'],
-                )
+            if interface.get('l2mtu') == None:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    )
+            else:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    l2mtu=interface['l2mtu'],
+                    )
             interfacesave.save()
         vlan=vlan_model.objects.all()
         ether=ethernet_model.objects.all()
@@ -66,13 +74,21 @@ def interface_data(request):
         interface_del.delete()
         for interface in interface_info:
             # print(json.dumps(interface, indent=4))
-            interfacesave = interface_model(
-            interface_id=interface['.id'],
-            interface_name=interface['name'],
-            typeinterface=interface['type'],
-            actualmtu=interface['actual-mtu'],
-            l2mtu=interface['l2mtu'],
-            )
+            if interface.get('l2mtu') == None:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    )
+            else:
+                interfacesave = interface_model(
+                    interface_id=interface['.id'],
+                    interface_name=interface['name'],
+                    typeinterface=interface['type'],
+                    actualmtu=interface['actual-mtu'],
+                    l2mtu=interface['l2mtu'],
+                    )
             interfacesave.save()
         return redirect('interface-list')
     else:
