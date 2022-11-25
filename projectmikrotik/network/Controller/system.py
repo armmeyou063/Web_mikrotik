@@ -184,6 +184,9 @@ def reboot(request):
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(host, username=username, password=password)
         stdin, stdout, stderr = client.exec_command('/system reboot')
+        del request.session['host']
+        del request.session['username'] 
+        del request.session['password'] 
         return redirect('login-form')
     else:
         return redirect('login-form')
@@ -199,6 +202,9 @@ def shutdown(request):
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(host, username=username, password=password)
         stdin, stdout, stderr = client.exec_command('/system shutdown')
+        del request.session['host']
+        del request.session['username'] 
+        del request.session['password'] 
         return redirect('login-form')
     else:
         return redirect('login-form')
